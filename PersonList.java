@@ -1,0 +1,3 @@
+class PersonList{
+    Person first;
+}
