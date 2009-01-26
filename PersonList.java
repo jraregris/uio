@@ -1,3 +1,3 @@
 class PersonList{
-    Person first;
+    private Person first;
 }
