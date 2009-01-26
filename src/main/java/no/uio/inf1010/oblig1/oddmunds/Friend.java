@@ -1,6 +1,6 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-public class Friend {
+public class Friend extends Link{
 
 	public Friend(Person person) {
 		this.friend = person;

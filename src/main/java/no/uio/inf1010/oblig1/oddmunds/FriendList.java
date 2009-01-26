@@ -1,11 +1,11 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-class FriendList{
+class FriendList extends Chain{
     private Friend first;
 
 	public void addFriend(Person person) {
-		if(hasNext()){
-			next.addFriend(person);
+		if(hasFirst()){
+			first.addFriend(person);
 		} else {
 			
 			first = new Friend(person);
