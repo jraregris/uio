@@ -3,7 +3,7 @@ package no.uio.inf1010.oblig1.oddmunds;
 public abstract class Chain {
 	private Link first;
 	
-	public Link getLink(){
+	public Link get(){
 		if(hasFirst()){
 			return first;
 		} else {
@@ -16,6 +16,14 @@ public abstract class Chain {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public void add(Link l){
+		if(hasFirst()){
+			first.add(l);
+		} else {
+			first = l;
 		}
 	}
 }

@@ -5,7 +5,7 @@ class FriendList extends Chain{
 
 	public void addFriend(Person person) {
 		if(hasFirst()){
-			first.addFriend(person);
+			first.add(person);
 		} else {
 			
 			first = new Friend(person);
