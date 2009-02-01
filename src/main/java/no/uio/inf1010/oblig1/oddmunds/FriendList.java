@@ -1,8 +1,10 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-class FriendList extends Chain{
+class FriendList{
     private Friend first;
 
+    
+    
 	public void addFriend(Person person) {
 		if(hasFirst()){
 			first.add(person);
@@ -12,4 +14,14 @@ class FriendList extends Chain{
 		}
 		
 	}
+
+
+
+    private boolean hasFirst() {
+        if(first != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

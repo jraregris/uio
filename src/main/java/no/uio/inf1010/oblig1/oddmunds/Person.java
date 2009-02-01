@@ -1,50 +1,57 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-class Person extends Link {
+class Person {
 
-	public Person(String username, String name) {
-		this.name = name;
-		this.username = username;
-		friends = new FriendList();
-	}
+    public Person(String username, String name) {
+        this.name = name;
+        this.username = username;
+        friends = new FriendList();
+    }
 
-	private String name;
-	private String username;
-	private FriendList friends;
+    private String name;
+    private String username;
+    private FriendList friends;
 
-	private Person next;
+    private Person next;
 
-	void insertPerson(Person person) {
-		if (hasNext()) {
-			next.insertPerson(person);
-		} else {
-			next = person;
-		}
-	}
+    void add(Person person) {
+        if (hasNext()) {
+            next.add(person);
+        } else {
+            next = person;
+        }
+    }
 
-	public Person getNext(){
-		if(hasNext()){
-			return next;
-		} else {
-			return null;
-		}
-	}
-	
-	
-	String getName() {
-		return name;
-	}
+    public Person getNext() {
+        if (hasNext()) {
+            return next;
+        } else {
+            return null;
+        }
+    }
 
-	String getUsername() {
-		return username;
-	}
+    private boolean hasNext() {
+        if (next != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	FriendList getFriends() {
-		return friends;
-	}
+    String getName() {
+        return name;
+    }
 
-	void add(Person person) {
-		friends.addFriend(person);
-	}
+    String getUsername() {
+        return username;
+    }
+
+    FriendList getFriends() {
+        return friends;
+    }
+
+    void addFriend(Person person) {
+        friends.addFriend(person);
+    }
 
 }

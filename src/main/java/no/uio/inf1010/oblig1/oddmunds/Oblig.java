@@ -15,7 +15,8 @@ public class Oblig {
 		pl.add(p2);
 		
 		System.out.println(pl.getFirst().getName());
-		System.out.println(pl.getFirst().getNext().getName());
+		Person p3 = pl.getFirst().getNext();
+		System.out.println(p3.getName());
 		
 
 	}

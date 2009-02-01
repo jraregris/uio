@@ -16,4 +16,15 @@ public class Friend extends Link{
 	public Friend getNext(){
 		return next;
 	}
+
+    public void add(Person person) {
+       if(hasNext()){
+           next.add(person);
+       } else {
+           next = new Friend(person);
+       }
+        
+    }
+
+    
 }

@@ -10,20 +10,4 @@ public class Link {
 				return false;
 			}
 		}
-		
-		public Link getNext(){
-			if(hasNext()){
-				return next;
-			} else {
-				return null;
-			}
-		}
-		
-		public void add(Link l){
-			if(hasNext()){
-				next.add(l);
-			} else {
-				next = l;
-			}
-		}
 }

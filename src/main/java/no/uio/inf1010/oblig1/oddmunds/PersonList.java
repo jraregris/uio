@@ -1,6 +1,6 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-class PersonList extends Chain {
+class PersonList{
 	private Person first;
 
 	public Person getFirst() {

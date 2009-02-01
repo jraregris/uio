@@ -19,11 +19,5 @@ public abstract class Chain {
 		}
 	}
 	
-	public void add(Link l){
-		if(hasFirst()){
-			first.add(l);
-		} else {
-			first = l;
-		}
-	}
+
 }
