@@ -14,7 +14,7 @@ class Person {
         friends = new FriendList();
     }
 
-    void add(Person person){
+    void add(Person person) {
         if (hasNext()) {
             next.add(person);
         } else {
@@ -72,13 +72,13 @@ class Person {
      * A (perhaps) unusual way of node removal.
      */
     public Person remove(String usernameOfPersonToBeRemoved) {
-        if(username.equals(usernameOfPersonToBeRemoved)) {
+        if (username.equals(usernameOfPersonToBeRemoved)) {
             return next;
         } else {
             next = next.remove(usernameOfPersonToBeRemoved);
             return this;
         }
-        
+
     }
 
     public void addFriend(String usernameOfPersonToBeAdded) {
@@ -87,8 +87,11 @@ class Person {
     }
 
     private Person getPersonByUsername(String username) {
-        
-        return null;
+        if (username != username) {
+            return next.getPersonByUsername(username);
+        } else {
+            return this;
+        }
     }
 
 }
