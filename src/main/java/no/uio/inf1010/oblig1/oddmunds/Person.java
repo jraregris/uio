@@ -10,11 +10,11 @@ class Person {
 
     public Person(String username, String name) {
         this.name = name;
-        this.username = username;
+        this.username = new String(username).toLowerCase();
         friends = new FriendList();
     }
 
-    void add(Person person) {
+    void add(Person person){
         if (hasNext()) {
             next.add(person);
         } else {
@@ -26,12 +26,12 @@ class Person {
         friends.addFriend(person);
     }
 
-    void removeNext(){
-        if(next!=null){
+    void removeNext() {
+        if (next != null) {
             next = null;
         }
     }
-    
+
     public FriendList getFriends() {
         return friends;
     }
@@ -58,6 +58,24 @@ class Person {
         } else {
             return false;
         }
+    }
+
+    public boolean equals(Person p) {
+        if (this.username.equalsIgnoreCase(p.username)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public Person remove(String username2) {
+        if(username.equals(username2)) {
+            return next;
+        } else {
+            next = next.remove(username2);
+            return this;
+        }
+        
     }
 
 }
