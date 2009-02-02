@@ -1,11 +1,20 @@
 package no.uio.inf1010.oblig1.oddmunds;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * @disclaimer I know that it's frowned upon to insert "new" objects of a class
+ *             different from the one being tested. (Person in this case.) But I
+ *             couldn't be bothered to mock it up. It can be refactored that way
+ *             on al later point.
+ * 
+ * @author oddmunds
+ * 
+ */
 public class PersonListTest {
 
     @Test
@@ -47,5 +56,5 @@ public class PersonListTest {
         pl.remove("metmor");
         assertNull(pl.getFirst());
     }
-    
+
 }

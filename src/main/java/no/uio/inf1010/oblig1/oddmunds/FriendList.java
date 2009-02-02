@@ -20,4 +20,8 @@ class FriendList {
             return false;
         }
     }
+
+    public Friend getFirst() {
+        return first;
+    }
 }

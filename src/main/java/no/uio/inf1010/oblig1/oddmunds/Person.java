@@ -68,14 +68,27 @@ class Person {
         }
     }
 
-    public Person remove(String username2) {
-        if(username.equals(username2)) {
+    /**
+     * A (perhaps) unusual way of node removal.
+     */
+    public Person remove(String usernameOfPersonToBeRemoved) {
+        if(username.equals(usernameOfPersonToBeRemoved)) {
             return next;
         } else {
-            next = next.remove(username2);
+            next = next.remove(usernameOfPersonToBeRemoved);
             return this;
         }
         
+    }
+
+    public void addFriend(String usernameOfPersonToBeAdded) {
+        Person p = next.getPersonByUsername(usernameOfPersonToBeAdded);
+        addFriend(p);
+    }
+
+    private Person getPersonByUsername(String username) {
+        
+        return null;
     }
 
 }

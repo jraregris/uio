@@ -34,11 +34,30 @@ public class PersonTest {
         assertTrue("Is equal with person with same username, different name",
                 p3.equals(p4));
     }
-    
+
     @Test
-    public void testAddingEqualPerson()  {
-        Person p1 = new Person("hemo", "Mel Gibson");
-        Person p2 = new Person("hemo", "Glenn Gloswet");
+    public void testAddFriend() {
+        Person p1 = new Person("feten", "Holger Helstpels");
+        Person p2 = new Person("geita", "Holger Helstpels");
+
+        p1.add(p2); // Adding p2 to the PersonList
+        p1.addFriend("geita");
+        
+        assertEquals("Friend added should be the same as first returned", p2,
+                p1.getFriends().getFirst().getFriend());
     }
 
+    @Test
+    public void testRemoveFriend() {
+        Person p1 = new Person("feten", "Holger Helstpels");
+        Person p2 = new Person("geita", "Holger Helstpels");
+
+        p1.add(p2);
+        //assertEquals(p2, p1.getFriends().getFirst().getFriend()); // Making sure
+                                                                  // the friend
+                                                                  // is added in
+                                                                  // the first
+                                                                  // place.
+
+    }
 }
