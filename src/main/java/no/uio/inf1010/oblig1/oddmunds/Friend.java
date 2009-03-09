@@ -35,4 +35,31 @@ public class Friend {
         }
     }
 
+	public boolean isFriendsWith(String username) {
+		if(friend.getUsername().equals(username)){
+			return true;
+		} else if(hasNext()){
+			return next.isFriendsWith(username);
+		} else {
+		return false;
+		}
+	}
+
+	public Friend defriend(Person person) {
+		if(friend==person){
+			return next;
+		} else {
+			next = next.defriend(person);
+			return this;
+		}
+	}
+
+	public String getFriendsString() {
+		String s = new String(friend.getName() + "\n");
+		if(hasNext()){
+			s = s + next.getFriendsString();
+		}
+		return s;
+	}
+
 }
