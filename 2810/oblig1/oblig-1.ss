@@ -33,25 +33,35 @@
 ; dato->dager returnerer antall dager fra midnatt  1. 1. 1970
 ;; til midnatt den gitt datoen
 (define (dato->dager år måned dag)
-  
-  ; FYLL UT
-  
-  0)
+  (if (and (= år startår) (= måned 1)) ; Allmentilfelle
+      (- dag 1)
+      (+ (- dag 1)
+         
+         (if (> måned 1) ; Først skraper vi sammen månedene
+             (+ (dato->dager år (- måned 1) 1) (månedslengde år (- måned 1)))
+             0)
+         
+         (if (and (= måned 1) (> år startår)) ; Og så sammen dagene
+             (+ (dato->dager (- år 1) 1 1) (årslengde (- år 1)))
+             0)
+         )))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; dato->sekunder returnerer antall sekunder fra midnatt 1. 1. 1970
 ;; til midnatt den gitt datoen
 (define (dato->sekunder år måned dag)
+  
   (* sekunder/dag (dato->dager år måned dag)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Testprosedyre
+;; Testprosedyre for lettere å debugge
 (define (test actual expected)
   (cond ((equal? actual expected)
          (display "."))
         (else 
-        
-         (display " FAIL! Expected:")
+         
+         (display "\nFAIL! Expected:")
          (display expected)
          (display "\n           was:")
          (display actual))))
@@ -64,19 +74,19 @@
 (test (sekunder->dato    92361600) '(1972  12 5))
 (test (sekunder->dato  1077926400) '(2004  2 28))
 (test (sekunder->dato  1078012800) '(2004  2 29))
-(sekunder->dato  1078099200) ;==> (2004  3  1)  00:00:00
-(sekunder->dato  1104451200) ;==> (2004 12 31)  00:00:00
-(sekunder->dato  1104537600) ;==> (2005  1  1)  00:00:00
-(sekunder->dato  1201824000) ;==> (2008  2  1)  20:50:26
-(sekunder->dato 64313049600) ;==> (4008  1  1)  00:00:00
-;'-----------
-;(dato->sekunder 1970  1  1) ;==>           0   00:00:00
-;(dato->sekunder 1970  1 31) ;==>     2592000   00:00:00
-;(dato->sekunder 1972  12 5) ;==>    92361600   00:00:00
-;(dato->sekunder 2004  2 28) ;==>  1077926400   00:00:00
-;(dato->sekunder 2004  2 29) ;==>  1078012800   00:00:00
-;(dato->sekunder 2004  3  1) ;==>  1078099200   00:00:00
-;(dato->sekunder 2004 12 31) ;==>  1104451200   00:00:00
-;(dato->sekunder 2005  1  1) ;==>  1104537600   00:00:00
-;(dato->sekunder 2008  2  1) ;==>  1201824000   00:00:00
+(test (sekunder->dato  1078099200) '(2004  3  1))
+(test (sekunder->dato  1104451200) '(2004 12 31))
+(test (sekunder->dato  1104537600) '(2005  1  1))
+(test (sekunder->dato  1201824000) '(2008  2  1))
+(test (sekunder->dato 64313049600) '(4008  1  1))
+(display "\n")
+(test (dato->sekunder 1970  1  1) 0)
+(test (dato->sekunder 1970  1 31) 2592000)
+(test (dato->sekunder 1972  12 5) 92361600)
+(test (dato->sekunder 2004  2 28) 1077926400)
+(test (dato->sekunder 2004  2 29) 1078012800)
+(test (dato->sekunder 2004  3  1) 1078099200)
+(test (dato->sekunder 2004 12 31) 1104451200)
+(test (dato->sekunder 2005  1  1) 1104537600)
+(test (dato->sekunder 2008  2  1) 1201824000)
 
