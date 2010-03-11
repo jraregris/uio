@@ -21,10 +21,10 @@
   xxx)
 
 (define (traverse Q S target-name)
-  xxx)
+  "xxx")
 
 (define (retrace S)                       ; T now begins with target and ends with start
-  xxx)
+  "xxx")
 
 (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
 
@@ -45,5 +45,8 @@
 (define *map* sample-map)
 (define (towns-and-roads) (car *map*))
 
-(do-search 'a 'j)
 
+(load "test.ss")
+;(do-search 'a 'j)
+
+(test (do-search 'a 'b) "(shortest path: xxx)")
