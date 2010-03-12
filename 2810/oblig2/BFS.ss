@@ -21,10 +21,10 @@
   xxx)
 
 (define (traverse Q S target-name)
-  "xxx")
+  (car Q))
 
 (define (retrace S)                       ; T now begins with target and ends with start
-  "xxx")
+  S)
 
 (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
 
@@ -36,17 +36,3 @@
         ((not (assoc target (towns-and-roads))) (list target 'is 'not 'on 'the 'map))
         ((eq? target start) (list 'target '= 'start))
         (else (list 'Shortest 'path: (BFS start target)))))
-
-
-; The definitions below are placed here for easy replacement during test runs.
-; Every procedure will have these definitions in its environment during run-time.
-
-(load "sample-graph.ss")
-(define *map* sample-map)
-(define (towns-and-roads) (car *map*))
-
-
-(load "test.ss")
-;(do-search 'a 'j)
-
-(test (do-search 'a 'b) "(shortest path: xxx)")
