@@ -18,19 +18,22 @@
 ;; ALGORITHM
 
 (define (expand-node Q S node)
-  xxx)
+  '())
 
 (define (traverse Q S target-name)
-  (car Q))
+
+  ; Is target first neighbor?
+  (cond ((eq? (car (lookup-neighbors (caar Q)))
+             target-name)
+        (list (caar Q) target-name))))
 
 (define (retrace S)                       ; T now begins with target and ends with start
-  S)
+   S)
 
 (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; RUN
-
 (define (do-search start target)
   (cond ((not (assoc start  (towns-and-roads))) (list start  'is 'not 'on 'the 'map))
         ((not (assoc target (towns-and-roads))) (list target 'is 'not 'on 'the 'map))
