@@ -24,7 +24,7 @@
   (cond ((null? neighborslist) Q) ; If nodelist is empty return the list
         ((has? (car neighborslist) S) (append-unvisited Q S (cdr neighborslist) node)) ;If S has first in ns, continue with next in ns
         (else
-         (append-unvisited (append Q (list (cons (car neighborslist) node))) S (cdr neighborslist) node)))) ; Else: append first in ns til end of Q, and continue with next in ns
+         (append-unvisited (append Q (list (list (car neighborslist) node))) S (cdr neighborslist) node)))) ; Else: append first in ns til end of Q, and continue with next in ns
 
 ; Q: queue of untraversed S:stack of traversed
 (define (traverse Q S target-name)
@@ -46,16 +46,18 @@
   (retrace2 S '()))
 
 (define (retrace2 S P)
-  ( 
-   ))
-  
-  (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
-  
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; RUN
-  (define (do-search start target)
-    (cond ((not (assoc start  (towns-and-roads))) (list start  'is 'not 'on 'the 'map))
-          ((not (assoc target (towns-and-roads))) (list target 'is 'not 'on 'the 'map))
-          ((eq? target start) (list 'target '= 'start))
-          (else (list 'Shortest 'path: (BFS start target)))))
-  
+  (display S)
+  (display "\n")
+  (cond ((eq? (cdr (car S)) #f)
+         (append P (list (cdr S))))
+        (else (retrace2 (cdr S) (append P (list (cadr S)))))))
+
+(define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; RUN
+(define (do-search start target)
+  (cond ((not (assoc start  (towns-and-roads))) (list start  'is 'not 'on 'the 'map))
+        ((not (assoc target (towns-and-roads))) (list target 'is 'not 'on 'the 'map))
+        ((eq? target start) (list 'target '= 'start))
+        (else (list 'Shortest 'path: (BFS start target)))))
