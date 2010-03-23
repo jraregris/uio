@@ -43,27 +43,27 @@
         (else (has? node (cdr list)))))
 
 (define (retrace S)       ; T now begins with target and ends with start
-  (retrace2 S (list (caar S)) #f))
+  (retrace2 S (list (caar S)) (cadr (car S))))
 
-(define (retrace2 S P prev)
-  (display "\n")
-  (display S)
-  (display "    ")
-  (display P)
-  (display "\n")
-  (display prev)
-  (display (cadr (car S)))
-  (cond ((eq? (cdr (car S)) #f)
+(define (retrace2 S P pred)
+  
+  
+  (cond ((eq? pred #f)
+         P)
+         
+         ((eq? (cdr (car S)) #f)
          (append P (list (cdr S))))
-        ((eq? (car (cdr (car S))) (car P))
+
+        ((eq? (car (car S)) pred)
          (retrace2 
           (cdr S) 
-          (append (list (caadr S)) P) 
+          (append (list (caar S)) P) 
           (cadr (car S))))
+        
         (else (retrace2 
                (cdr S) 
                P 
-               prev))))
+               pred))))
 
 (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
 

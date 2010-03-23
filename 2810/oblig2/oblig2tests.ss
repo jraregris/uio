@@ -46,10 +46,9 @@
 (test (do-search 'Ben 'Ben) '(target = start))
 
 (test (do-search 'Ali 'Ben) '(Shortest path: (Ali Ben)))
-(test (do-search 'Ali 'Jiz) '(shortest path: (Ali Ben Jiz)))
+(test (do-search 'Ali 'Jiz) '(Shortest path: (Ali Ben Jiz)))
 
-(display "\nmore\n")
-
-(map do-search
-     '(Ali Ali Ali Åge Ozi)
-     '(Jiz Tlö Wot Mur Hur))
+;(display "\nmore\n")
+;(map do-search
+ ;    '(Ali Ali Ali Åge Ozi)
+  ;   '(Jiz Tlö Wot Mur Hur))
