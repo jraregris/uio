@@ -1,0 +1,50 @@
+@prefix ex:     <http://www.example.org/aaa#> .
+@prefix geo:    <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix places: <http://inf3580.ifi.uio.no/places#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+
+# Where I was born
+ex:Kristiansand rdf:type places:Place ;
+                places:name "Kristiansand"@no ;
+                places:position
+                        [ rdf:type geo:Point ;
+                          geo:lat "58.17"^^xsd:double ;
+                          geo:long "8.006111"^^xsd:double
+                        ] .
+
+# Where I went to school
+ex:Mandal rdf:type places:Place ;
+          places:name "Mandal"@no ;
+          places:position
+                [ rdf:type geo:Point ;
+                  geo:lat "58.045833"^^xsd:double ;
+                  geo:long "7.495556"^^xsd:double
+                ] .
+
+# Where I currently live
+ex:Oslo rdf:type places:Place ;
+        places:name "Oslo"@no ;
+        places:position
+                [ rdf:type geo:Point ;
+                  geo:lat "59.949444"^^xsd:double ;
+                  geo:long "10.756389"^^xsd:double
+                ] .
+
+# Where my parents live
+ex:Underøy rdf:type places:Place ;
+           places:name "Underøy"@no ;
+           places:postition
+                [ rdf:type geo:Point ;
+                  geo:lat "58.03949"^^xsd:double ;
+                  geo:long "7.25510"^^xsd:double
+                ] .
+
+# Where my girlfriend lives
+ex:CapeTown rdf:type places:Place ;
+            places:name "Cape Town"@no ;
+            places:position
+                [ rdf:type geo:Point ;
+                  geo:lat "-33.925278"^^xsd:double ;
+                  geo:long "18.423889"^^xsd:double
+                ] .
