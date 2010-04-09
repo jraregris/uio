@@ -4,12 +4,7 @@
 @prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix places:  <http://inf3580.ifi.uio.no/places#> .
 
-<Mandal to CapeTown>
-      a       places:Connection ;
-      places:distance "10277.496336188886"^^xsd:double ;
-      places:endpoint ex:Mandal , ex:CapeTown .
-
-<Kristiansand to Mandal>
+<Mandal_to_Kristiansand>
       a       places:Connection ;
       places:distance "33.01850279701821"^^xsd:double ;
       places:endpoint ex:Mandal , ex:Kristiansand .
@@ -23,17 +18,12 @@ ex:Oslo
                 geo:long "10.756389"^^xsd:double
               ] .
 
-<Mandal to Oslo>
+<Underøy_to_Mandal>
       a       places:Connection ;
-      places:distance "282.2185517196472"^^xsd:double ;
-      places:endpoint ex:Mandal , ex:Oslo .
+      places:distance "14.169379915587427"^^xsd:double ;
+      places:endpoint ex:Mandal , ex:Underøy .
 
-<CapeTown to Oslo>
-      a       places:Connection ;
-      places:distance "10462.119130194587"^^xsd:double ;
-      places:endpoint ex:CapeTown , ex:Oslo .
-
-<Kristiansand to CapeTown>
+<Kristiansand_to_CapeTown>
       a       places:Connection ;
       places:distance "10286.525131042754"^^xsd:double ;
       places:endpoint ex:CapeTown , ex:Kristiansand .
@@ -47,24 +37,25 @@ ex:Kristiansand
                 geo:long "8.006111"^^xsd:double
               ] .
 
-<CapeTown to CapeTown>
+<Kristiansand_to_Oslo>
       a       places:Connection ;
-      places:distance 9.493529796600342E-5 ;
-      places:endpoint ex:CapeTown .
+      places:distance "252.68774134686345"^^xsd:double ;
+      places:endpoint ex:Oslo , ex:Kristiansand .
 
-<Oslo to Oslo>
+<Oslo_to_Underøy>
       a       places:Connection ;
-      places:distance 1.3425878593145295E-4 ;
-      places:endpoint ex:Oslo .
+      places:distance "292.0280996776583"^^xsd:double ;
+      places:endpoint ex:Oslo , ex:Underøy .
 
-ex:CapeTown
-      a       places:Place ;
-      places:name "Cape Town"@no ;
-      places:position
-              [ a       geo:Point ;
-                geo:lat "-33.925278"^^xsd:double ;
-                geo:long "18.423889"^^xsd:double
-              ] .
+<CapeTown_to_Underøy>
+      a       places:Connection ;
+      places:distance "10279.052432561188"^^xsd:double ;
+      places:endpoint ex:CapeTown , ex:Underøy .
+
+<Mandal_to_CapeTown>
+      a       places:Connection ;
+      places:distance "10277.496336188886"^^xsd:double ;
+      places:endpoint ex:Mandal , ex:CapeTown .
 
 ex:Mandal
       a       places:Place ;
@@ -75,46 +66,95 @@ ex:Mandal
                 geo:long "7.495556"^^xsd:double
               ] .
 
+ex:CapeTown
+      a       places:Place ;
+      places:name "Cape Town"@no ;
+      places:position
+              [ a       geo:Point ;
+                geo:lat "-33.925278"^^xsd:double ;
+                geo:long "18.423889"^^xsd:double
+              ] .
+
+<CapeTown_to_Oslo>
+      a       places:Connection ;
+      places:distance "10462.119130194587"^^xsd:double ;
+      places:endpoint ex:CapeTown , ex:Oslo .
+
+<Underøy_to_Oslo>
+      a       places:Connection ;
+      places:distance "292.0280996776583"^^xsd:double ;
+      places:endpoint ex:Oslo , ex:Underøy .
+
+<Underøy_to_Kristiansand>
+      a       places:Connection ;
+      places:distance "46.448208315031515"^^xsd:double ;
+      places:endpoint ex:Underøy , ex:Kristiansand .
+
+<CapeTown_to_Mandal>
+      a       places:Connection ;
+      places:distance "10277.496336188886"^^xsd:double ;
+      places:endpoint ex:CapeTown , ex:Mandal .
+
+<Underøy_to_CapeTown>
+      a       places:Connection ;
+      places:distance "10279.052432561188"^^xsd:double ;
+      places:endpoint ex:CapeTown , ex:Underøy .
+
+<Oslo_to_Oslo>
+      a       places:Connection ;
+      places:distance 1.3425878593145295E-4 ;
+      places:endpoint ex:Oslo .
+
+<Oslo_to_Mandal>
+      a       places:Connection ;
+      places:distance "282.2185517196472"^^xsd:double ;
+      places:endpoint ex:Oslo , ex:Mandal .
+
+<Kristiansand_to_Mandal>
+      a       places:Connection ;
+      places:distance "33.01850279701821"^^xsd:double ;
+      places:endpoint ex:Mandal , ex:Kristiansand .
+
+<Mandal_to_Oslo>
+      a       places:Connection ;
+      places:distance "282.2185517196472"^^xsd:double ;
+      places:endpoint ex:Mandal , ex:Oslo .
+
+<CapeTown_to_CapeTown>
+      a       places:Connection ;
+      places:distance 9.493529796600342E-5 ;
+      places:endpoint ex:CapeTown .
+
+<Oslo_to_CapeTown>
+      a       places:Connection ;
+      places:distance "10462.119130194587"^^xsd:double ;
+      places:endpoint ex:Oslo , ex:CapeTown .
+
+<Kristiansand_to_Underøy>
+      a       places:Connection ;
+      places:distance "46.448208315031515"^^xsd:double ;
+      places:endpoint ex:Underøy , ex:Kristiansand .
+
 ex:Underøy
       a       places:Place ;
       places:name "Underøy"@no ;
-      places:postition
+      places:position
               [ a       geo:Point ;
                 geo:lat "58.03949"^^xsd:double ;
                 geo:long "7.25510"^^xsd:double
               ] .
 
-<Mandal to Kristiansand>
+<Mandal_to_Underøy>
       a       places:Connection ;
-      places:distance "33.01850279701821"^^xsd:double ;
-      places:endpoint ex:Mandal , ex:Kristiansand .
+      places:distance "14.169379915587427"^^xsd:double ;
+      places:endpoint ex:Mandal , ex:Underøy .
 
-<CapeTown to Mandal>
-      a       places:Connection ;
-      places:distance "10277.496336188886"^^xsd:double ;
-      places:endpoint ex:CapeTown , ex:Mandal .
-
-<Oslo to CapeTown>
-      a       places:Connection ;
-      places:distance "10462.119130194587"^^xsd:double ;
-      places:endpoint ex:Oslo , ex:CapeTown .
-
-<Kristiansand to Oslo>
+<Oslo_to_Kristiansand>
       a       places:Connection ;
       places:distance "252.68774134686345"^^xsd:double ;
       places:endpoint ex:Oslo , ex:Kristiansand .
 
-<Oslo to Kristiansand>
-      a       places:Connection ;
-      places:distance "252.68774134686345"^^xsd:double ;
-      places:endpoint ex:Oslo , ex:Kristiansand .
-
-<Oslo to Mandal>
-      a       places:Connection ;
-      places:distance "282.2185517196472"^^xsd:double ;
-      places:endpoint ex:Oslo , ex:Mandal .
-
-<CapeTown to Kristiansand>
+<CapeTown_to_Kristiansand>
       a       places:Connection ;
       places:distance "10286.525131042754"^^xsd:double ;
       places:endpoint ex:CapeTown , ex:Kristiansand .

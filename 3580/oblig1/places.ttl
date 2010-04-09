@@ -34,7 +34,7 @@ ex:Oslo rdf:type places:Place ;
 # Where my parents live
 ex:Underøy rdf:type places:Place ;
            places:name "Underøy"@no ;
-           places:postition
+           places:position
                 [ rdf:type geo:Point ;
                   geo:lat "58.03949"^^xsd:double ;
                   geo:long "7.25510"^^xsd:double

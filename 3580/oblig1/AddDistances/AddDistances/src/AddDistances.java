@@ -36,6 +36,7 @@ public class AddDistances {
 
 
     Property name = model.getProperty(placesNS + "name");
+    Property place = model.getProperty(placesNS + "Place");
     Property position = model.getProperty(placesNS + "position");
     Property endpoint = model.getProperty(placesNS + "endpoint");
     Property distance = model.getProperty(placesNS + "distance");
@@ -61,7 +62,7 @@ public class AddDistances {
 
         if (dist != 0) { // Not adding distance to itself
 
-          Resource c = model.createResource(f.getLocalName() + " to " + t.getLocalName());
+          Resource c = model.createResource(f.getLocalName() + "_to_" + t.getLocalName());
           c.addProperty(type, connection);
           c.addProperty(endpoint, f);
           c.addProperty(endpoint, t);
