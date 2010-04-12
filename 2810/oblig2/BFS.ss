@@ -50,7 +50,7 @@
 (define (does_list_of_pairs_have_town? town list)
   (cond ((eq? list '()) #f)
         ((has? town (car list)) #t)
-        (else does_list_of_pairs_have_town? town (cdr list))))
+        (else (does_list_of_pairs_have_town? town (cdr list)))))
 
 (define (retrace S)       ; T now begins with target and ends with start
   (retrace2 S (list (caar S)) (cadr (car S))))
