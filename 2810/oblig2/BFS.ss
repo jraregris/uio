@@ -22,25 +22,35 @@
 
 (define (append-unvisited Q S neighborslist node)
   (cond ((null? neighborslist) Q) ; If nodelist is empty return the list
-        ((has? (car neighborslist) S) (append-unvisited Q S (cdr neighborslist) node)) ;If S has first in ns, continue with next in ns
+        ((hascar? (car neighborslist) S) (append-unvisited Q S (cdr neighborslist) node)) ;If S has first in ns, continue with next in ns
         (else
          (append-unvisited (append Q (list (list (car neighborslist) node))) S (cdr neighborslist) node)))) ; Else: append first in ns til end of Q, and continue with next in ns
 
-; Q: queue of untraversed S:stack of traversed
+                                        ; Q: queue of untraversed S:stack of traversed
 (define (traverse Q S target-name)
   (cond ((eq? (caar Q) target-name) ; (t.2) Hvis n = mål
          (append (cons (car Q) S)))           ; (t.3) Legger vi (n,f) på S og returnerer S
-        ((has? (car Q) S)
+        ((does_list_of_pairs_have_town? (caar Q) S)
          (traverse (cdr Q) S target-name))
         (else
          (traverse (expand-node (cdr Q) S (caar Q)) (append (list (car Q)) S) target-name))
         ))
 
-; Helpers
+                                        ; Helpers
 (define (has? node list)
   (cond ((eq? list '()) #f)
         ((eq? node (car list)) #t)
         (else (has? node (cdr list)))))
+
+(define (hascar? node list)
+  (cond ((eq? list '()) #f)
+        ((eq? node (car (car list))) #t)
+        (else (hascar? node (cdr list)))))
+
+(define (does_list_of_pairs_have_town? town list)
+  (cond ((eq? list '()) #f)
+        ((has? town (car list)) #t)
+        (else does_list_of_pairs_have_town? town (cdr list))))
 
 (define (retrace S)       ; T now begins with target and ends with start
   (retrace2 S (list (caar S)) (cadr (car S))))
@@ -50,10 +60,10 @@
   
   (cond ((eq? pred #f)
          P)
-         
+        
         ((eq? (cdr (car S)) #f)
          (append P (list (cdr S))))
-
+        
         ((eq? (car (car S)) pred)
          (retrace2 
           (cdr S) 
@@ -67,7 +77,7 @@
 
 (define (BFS start target) (retrace (traverse (init-queue start) '() target))) 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+         ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; RUN
 (define (do-search start target)
   (cond ((not (assoc start  (towns-and-roads))) (list start  'is 'not 'on 'the 'map))
@@ -75,61 +85,50 @@
         ((eq? target start) (list 'target '= 'start))
         (else (list 'Shortest 'path: (BFS start target)))))
 
-; Load test "framework"
+
+         ;;;;;;;;;;;;;;;;;;;;
+;;tests
+
+                                        ; Load test "framework"
 (load "test.ss")
 
-; Load BFS
-
-;(load "BFS.ss")
-
-; Configure BFS
+                                        ; Configure BFS
 
 (load "Graaf.ss")
 (define *map* graaf)
 (define (towns-and-roads) (car *map*))
 
-; Test BFS
+                                        ; Test BFS
 
-; ‘Unit’ tests
-
-(display "lookup-neigbhors, front-queue, rest-queue")
-(test (lookup-neighbors 'Ali) '(Ben Coz Dil Ezi))
-(test (lookup-neighbors (front-queue (lookup-neighbors 'Ali))) '(Ali Coz Hur Ibe Jiz))
-(test (front-queue (lookup-neighbors 'Ali)) 'Ben)
-(test (rest-queue (lookup-neighbors 'Ali)) '(Coz Dil Ezi))
-
-(display "\nhas?")
-(test (has? 'Ali '()) #f)
-(test (has? 'Ali (list 'Ali)) #t)
-(test (has? 'Ali (list 'Ali 'baba 'congo)) #t)
-(test (has? 'Ali (list 'baba 'congo 'Ali)) #t)
-(test (has? 'Ali (list 'baba 'congo)) #f)
+                                        ; Acceptance tests
 
 
-(display "\ninit-queue")
-(test (init-queue 'Ali) '((Ali #f)))
+                                        ;(display (do-search 'Ali 'Wot))
 
-(display "\nexpand-node")
-(test (expand-node '() '() 'Ali) '((Ben Ali)(Coz Ali)(Dil Ali)(Ezi Ali)))
+                                        ;(display "\n")
 
-;(display "\ntraverse")
-;(test (traverse (init-queue 'Ali) '() 'Ali) '((Ali #f)))
+                                        ;(display "\nmore\n")
+                                        ;(map do-search
+                                        ;    '(Ali Ali Ali Åge Ozi)
+                                        ;   '(Jiz Tlö Wot Mur Hur))
 
 
-; Acceptance tests
-(display "\nAcceptance Tests")
-(test (do-search 'a '()) '(a is not on the map))
-(test (do-search 'Ali 'Ali) '(target = start))
-(test (do-search 'Ben 'Ben) '(target = start))
+(map do-search
+     '(Ali Ali Ali Åge Ozi)
+     '(Jiz Tlö Wot Mur Hur))
 
-(test (do-search 'Ali 'Ben) '(Shortest path: (Ali Ben)))
-(test (do-search 'Ali 'Jiz) '(Shortest path: (Ali Ben Jiz)))
+                                        ;Resultater for BFS:
 
-(do-search 'Ali 'Ben)
-(do-search 'Ali 'Jiz)
-(do-search 'Ali 'Mur)
+                                        ;((Shortest path Ali -> Jiz = (Ali Ben Jiz))
+                                        ; (Shortest path Ali -> Tlö = (Ali Ben Ibe Liu Rok Tlö))
+                                        ; (Shortest path Ali -> Wot = (Ali Ben Ibe Liu Rok Tlö Wot))
+                                        ; (Shortest path Åge -> Mur = (Åge Ægi Yli Wot Tlö Rok Mur))
+                                        ; (Shortest path Ozi -> Hur = (Ozi Faz Dil Hur)))
 
-;(display "\nmore\n")
-;(map do-search
- ;    '(Ali Ali Ali Åge Ozi)
-  ;   '(Jiz Tlö Wot Mur Hur))
+                                        ;Resultater for UCS og A*:
+
+                                        ;((shortest path Ali -> Jiz = ((Ali Ben Jiz) . 63))
+                                        ;(shortest path Ali -> Tlö = ((Ali Coz Dil Faz Nil Mur Rok Tlö) . 149))
+                                        ;(shortest path Ali -> Wot = ((Ali Coz Dil Faz Ozi Pel Uqq Wot) . 157))
+                                        ;(shortest path Åge -> Mur = ((Åge Ørt Zot Wot Uqq Rok Mur) . 106))
+                                        ;(shortest path Ozi -> Hur = ((Ozi Faz Gol Hur) . 79)))
