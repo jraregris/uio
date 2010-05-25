@@ -1,0 +1,5 @@
+Question 4
+
+1. The RDF graph of Question 1 give all the places:Places geo:Points for places:position. This does not, however, entail that all places:Places has one, or even a places:Position.
+
+2. No, giving more than one places:Place the same places:Point as places:position would not be consistent according to places.ttl. Such a graph does not have an RDF-interpretation.

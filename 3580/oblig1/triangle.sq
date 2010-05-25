@@ -1,0 +1,23 @@
+PREFIX geo:     <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+PREFIX places:  <http://inf3580.ifi.uio.no/places#>
+PREFIX ex:     <http://www.example.org/aaa#> 
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+PREFIX xsd:    <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT DISTINCT ?x ?y ?z WHERE{
+
+_:xy places:endpoint ?x .
+_:xy places:endpoint ?y .
+_:xy places:distance ?xy . FILTER(?xy > 0)
+
+_:xz places:endpoint ?x .
+_:xz places:endpoint ?z .
+_:xz places:distance ?xz . FILTER(?xz > 0)
+
+_:zy places:endpoint ?z .
+_:zy places:endpoint ?y .
+_:zy places:distance ?zy . FILTER(?zy > 0)
+
+FILTER(?xy + ?yz <= ?xz)
+
+}
