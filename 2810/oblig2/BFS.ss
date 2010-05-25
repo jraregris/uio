@@ -98,21 +98,6 @@
 (define *map* graaf)
 (define (towns-and-roads) (car *map*))
 
-                                        ; Test BFS
-
-                                        ; Acceptance tests
-
-
-                                        ;(display (do-search 'Ali 'Wot))
-
-                                        ;(display "\n")
-
-                                        ;(display "\nmore\n")
-                                        ;(map do-search
-                                        ;    '(Ali Ali Ali Åge Ozi)
-                                        ;   '(Jiz Tlö Wot Mur Hur))
-
-
 (map do-search
      '(Ali Ali Ali Åge Ozi)
      '(Jiz Tlö Wot Mur Hur))
