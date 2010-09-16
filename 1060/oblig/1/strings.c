@@ -1,10 +1,11 @@
+#include <stdio.h>
 #include <stdlib.h>
-#include <argp.h>    // Tar seg av kommandolinje-argumenter og slikt
+
+#include "stringsfun.h"
 
 //// Documentation
-/* version, bug address */
-const char *argp_program_version = "1060-h10-oblig1 0.1";
-const char *argp_program_bug_address = "<oddmunds@ulrik.uio.no>";
+#define VERSION "1060-h10-oblig1 0.1"
+#define AUTHOR "<oddmunds@ulrik.uio.no>"
 
 /* main doc line */
 static char doc[] = "STRINGS - String manipulation program \
@@ -14,24 +15,29 @@ static char doc[] = "STRINGS - String manipulation program \
                    \n  remove \t\t Remove vowels \
                    \n  len \t\t\t Print length";
 
-/* argument doc */
-static char args_doc[] = "COMMAND INPUT_FILE";
-
-struct arguments
+void usage(char arg[])
 {
-  char *args[2];
-  char *command, *input_file;
-};
+  printf("USAGE: %s command input_file\n", arg);
+  printf("where \"command\" is one of the following:\n");
+  printf("  print      print input_file\n");
+  printf("  random     print a random line\n");
+  printf("  replace    replace the vowels with all the other vowels\n");
+  printf("  remove     remove vowels\n");
+  printf("  len        print the number of characters in input_file\n");
+}
 
-
-static struct argp argp = {0, 0, args_doc, doc};
 
 int main(int argc, char **argv)
 {
   // Parse arguments
-  argp_parse(&argp, argc, argv, 0, 0, 0);
-
-
+  if(argc<3)
+    {
+      usage(argv[0]);
+    }
+  else 
+    {
+      
+    }
   
   exit(0);
 }
