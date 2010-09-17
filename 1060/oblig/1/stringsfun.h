@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 struct node 
 {
@@ -6,12 +7,25 @@ struct node
   char *data;
 };
 
-  
+struct node *head = NULL;  
+
+void makelist(struct node *head, char file[]){
+  struct node *this;
+  struct node *next;
+
+  next = malloc(sizeof(struct node));
+  this->data = nextline();
+  this->next = mallox(sizeof(struct node));
+}
+
+
+
+
 
 void doprint(char file[])
 {
   printf("PRINT!");
-  
+  makelist(head, file);
 }
 void dorandom(char file[])
 {
