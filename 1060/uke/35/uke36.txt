@@ -1,0 +1,236 @@
+﻿=======================================================================
+Oppgaver uke 37
+=======================================================================
+
+Denne uken er målet å komme igang med litt C programmering. Vi 
+fokuserer på å bruke *de delene av C som faller naturlig for de som 
+allerede kan programmere i Java*. På gruppetimen (28/8) kommer vi til 
+å gjennomgå noen av disse oppgavene, men sannsynligvis vil vi gå endel 
+videre og begynne med litt mer avanserte emner som *pekere* og 
+*filbehandling*.
+
+Løsningsforslag legges ut *etter* gruppetimen.
+
+
+
+Noen begreper
+-----------------------------------------------------------------------
+
+Kommandolinjeargument
+    Argumenter/parametere til programmet når det kjøres. Feks. er 
+    ``hello.c`` et argument til programmet ``gcc`` når vi kjører::
+
+        ~$ gcc hello.c
+
+Man-side
+    Hjelp sider som er tilgjengelig med kommandoen ``man`` i Linux (og
+    mange andre operativsystemer). For eksempel kan du bruke 
+    kommandoen::
+
+        ~$ man 3 printf
+
+    for å få hjelp med printf funksjonen. For å finne ut hvilke 
+    ``man`` sider som inneholder info om et spesielt tema kan 
+    kommandoene ``apropos`` og ``whatis`` brukes. F.eks vil 
+    kommandoen::
+        
+        ~$ whatis printf
+
+    fortelle oss at det finnes flere *tema* som heter *printf*, og ved 
+    hjelp av litt prøving og feiling finner vi ut at ``man 3 printf`` 
+    er C funksjonen vi leter etter. Merk at alle standard C funksjoner 
+    er i *seksjon 3*.
+
+    Det er også mulig å lese man-sider på bla.
+    http://manpages.courier-mta.org/ og http://wikipedia.org.
+
+cstring:
+    Navnet ``cstring`` brukes ofte når man snakker om ``\0`` 
+    terminerte character arrays. I kodebiten ``char *x = "hello"``, er 
+    ``x`` det vi kaller en ``cstring``.
+
+
+
+Oppgave 1
+-----------------------------------------------------------------------
+
+
+A
+~~~~~
+
+Skriv et program som:
+
+- tar en beskjed som kommandolinjeargument.
+- lagrer beskjeden i variabelen ``msg``.
+- skriver ut beskjeden "Input: " etterfulgt av ``msg``.
+
+En kjøring av programmet skal se slik ut::
+
+    ~$ ./1 "Hello world"
+    Input: Hello world
+
+
+B
+~~~~~
+
+Utvid programmet slik at det gir en feilmelding/hjelp-tekst hvis 
+brukeren ikke sender med noe kommandolinje argument.
+
+
+
+C
+~~~~~
+
+Utvid programmet slik at det sjekker om cstringen ``msg`` er et tall.  
+Hvis ``msg`` er et tall, skal du lage en ny variabel av korrekt type 
+(f.eks ``int`` eller ``float``). Det er opp til deg selv hvor avansert 
+du velger å gjøre løsningen.
+
+Hint1
+    Ta en titt på *man-siden* til ``atof``, ``atoi`` og andre 
+    funksjoner i ``stdlib.h``.
+Hint2
+    Lag funksjoner for å sjekke om en string er en ``int`` eller en 
+    ``float`` osv.
+
+
+
+Oppgave 2
+-----------------------------------------------------------------------
+
+Skriv en funksjon::
+
+    char strgetc(char s[], int pos)
+
+som gir tegnet på posisjon nr ``pos`` i teksten ``s``. Første posisjon 
+er nr 0, andre nr 1, osv.. Hvis det angitte tegnet ikke finnes i 
+teksten, skal funksjonen returnere -1. Skriv også et lite testprogram. 
+
+
+
+Oppgave 3
+-----------------------------------------------------------------------
+
+Følgende program::
+
+    #include <stdio.h>
+
+    int main(){
+        short a, b, sum;
+
+        a = 20000;  b = 20000;  sum = a+b;
+        printf("%d + %d = %d\n", a, b, sum);
+    }
+
+gir dette resultatet når det kjøres:
+
+    20000 + 20000 = -25536
+
+Hvorfor skjer det?
+
+
+
+Oppgave 4
+-----------------------------------------------------------------------
+
+Utvid programmet fra `Oppgave 3`_ slik at det oppdager problemet og 
+gir en feilmelding når ``sum`` blir feil.
+
+
+
+
+Oppgave 5
+-----------------------------------------------------------------------
+
+Skriv en makro::
+
+    #define STREQ(s1,s2)
+
+som sjekker om de to tekstene er like. Tanken er at den kan brukes i
+if-tester:
+
+    if (STREQ(s,"Abc")) ...
+
+
+
+Oppgave 6
+-----------------------------------------------------------------------
+
+A
+~~~~
+
+Skriv funksjonen::
+
+    int ishex(unsigned char c)
+
+Som sjekker om ``c`` er et hex-tegn:
+
+    ``'0'-'9'``, ``'a'-'f'`` eller ``'A'-'F'``
+
+
+B
+~~~~
+
+Skriv funksjonen::
+
+    int hexval(unsigned char c)
+
+som konverterer et hex-tegn til sin desimal verdi 0-15. Bruk 
+funksjonen fra **A** til å sjekke om ``c`` har en gyldig verdi. Prøv å 
+finne en bra måte å håndtere feil på som også kan brukes i andre 
+metoder.
+
+
+
+Oppgave 7
+-----------------------------------------------------------------------
+
+Standardfunksjonen::
+
+	int strcmp (unsigned char s1[], unsigned char s2[])
+
+sammenligner to tekster og returnerer en verdi som er:
+
+    | <0 om ``s1`` kommer før ``s2``
+    | =0 om ``s1`` og ``s2`` er like
+    | >0 om ``s1`` kommer etter ``s2``
+
+Skriv ``strcmpx`` i C. Den skal oppfører seg likt ``strcmp``.
+Her er et testprogram::
+
+    #include <stdio.h>
+
+    int strcmpx(unsigned char s1[], unsigned char s2[]){
+    }
+
+    void test(unsigned char s1[], unsigned char s2[]){
+        printf("strcmpx(\"%s\", \"%s\") gir %d\n",
+            s1, s2, strcmpx(s1,s2));
+    }
+
+    int main(){
+      test("Abc", "Ab");
+      test("Abc", "Abc");
+      test("Abc", "Abcd");
+      return 0;
+    }
+
+
+
+
+Oppgave 8
+-----------------------------------------------------------------------
+
+Skriv et C-program som leser mål i tommer og skriver det ut i fot og
+tommer. (Det er 12 tommer i en fot.) Programmet skal avslutt når
+brukeren angir 0.
+
+Eksempel på kjøring::
+
+    ~$ ./8
+    Inches: 10
+    10 inches is 0 foot and 10 inches.
+    Inches: 76
+    76 inches is 6 foot and 4 inches.
+    Inches: 0
+
