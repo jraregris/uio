@@ -4,7 +4,7 @@ compress: compress
 	gcc compress.c -o compress
 
 strings: strings.c stringsfun.h
-	gcc strings.c stringsfun.h -o strings
+	gcc strings.c stringsfun.h -ggdb -o strings
 
 clean: 
 	rm strings

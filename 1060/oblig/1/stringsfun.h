@@ -10,16 +10,18 @@ struct node
 struct node *head = NULL;  
 
 void makelist(struct node *head, char file[]){
-  struct node *this;
-  struct node *next;
+  
+  FILE *f;
 
-  next = malloc(sizeof(struct node));
-  this->data = nextline();
-  this->next = mallox(sizeof(struct node));
+//  struct node *this;
+//  struct node *next;
+
+  //  next = malloc(sizeof(struct node));
+  //this->data = nextline();
+  //this->next = mallox(sizeof(struct node));
+
+  
 }
-
-
-
 
 
 void doprint(char file[])
