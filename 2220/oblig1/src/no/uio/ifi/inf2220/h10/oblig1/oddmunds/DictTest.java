@@ -10,5 +10,4 @@ public class DictTest extends TestCase {
 		d.insert("familie");
 		assertTrue(d.has("familie"));
 	}
-
 }
