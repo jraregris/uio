@@ -1,5 +1,3 @@
-package no.uio.ifi.inf2220.h10.oblig1.oddmunds;
-
 public class DictNode {
 	DictNode left;
 	DictNode right;
@@ -42,5 +40,17 @@ public class DictNode {
 				right.insert(string);
 			else
 				right = new DictNode(string);
+	}
+	public void remove(String s) {
+		if(data.compareToIgnoreCase(s)<0)
+			if(left.data.compareTo(s)==0)
+				left = null;
+			else
+				left.remove(s);
+		else
+			if(right.data.compareToIgnoreCase(s)==0)
+				right = null;
+			else
+				right.remove(s);
 	}
 }
