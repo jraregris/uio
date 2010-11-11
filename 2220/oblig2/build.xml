@@ -1,0 +1,163 @@
+<project name="inf2220" default="jar" basedir=".">
+
+    <!--
+
+    This build.xml file was made in order to show how
+    Java can be compiled using Ant, which is a handy
+    tool (although it is being replaced by Maven
+    more or less).
+
+    author: bjarneh@ifi.uio.no
+
+    -->
+
+    <target name="init">
+
+        <echo> set variables and classpath </echo>
+
+        <property name="jardir"  value="lib"/>
+        <property name="srcdir" value="src"/>
+        <property name="infodir"  value="doc"/>
+        <property name="build" value="build"/>
+        <property name="classdest" value="${build}/classes"/>
+        <property name="jardest" value="dist"/>
+
+        <!-- make this directory if not already present -->
+
+        <mkdir dir="${jardir}"/>
+
+        <!-- we make all jar files in the lib directory available -->
+
+        <path id="class.path">
+            <fileset dir="${jardir}">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+
+    </target>
+
+
+    <!-- this compiles the classes and stuffs them into the classes dir -->
+
+    <target name="build" description="compile java classes"
+        depends="init">
+
+        <echo> compile source code </echo>
+
+        <mkdir dir="${classdest}"/>
+        <javac source="1.5" debug="on" srcdir="${srcdir}" destdir="${classdest}" >
+            <exclude name="**/package-info.java" />
+            <classpath refid="class.path" />
+        </javac>
+    </target>
+
+
+    <!-- this jars up the files into the inf2220.jar  -->
+
+    <target name="jar" description="build a jar file containing classes" depends="build">
+
+        <echo> create jar file from source code </echo>
+        
+        <mkdir dir="${jardest}"/>
+        <jar jarfile="${jardest}/inf2220.jar" basedir="${classdest}"
+            manifest="${srcdir}/manifest.txt"/>
+    </target>
+
+
+    <!-- javadoc target will only document public -->
+
+    <target name="javadoc" description="make javadoc" depends="init">
+
+        <echo> build javadoc </echo>
+
+        <mkdir dir="${infodir}" />
+        <javadoc  destdir="${infodir}"
+            link="http://java.sun.com/j2se/1.5.0/docs/api/">
+
+            <fileset dir="${srcdir}/" >
+                <include name="**/*.java" />
+                <exclude name="test/**"/> 
+            </fileset>
+
+            <classpath refid="class.path"/>
+
+        </javadoc>
+    </target>
+
+
+    <!-- make a seperate target to javadoc private things  -->
+
+    <target name="privatedoc" description="make javadoc for all source"
+        depends="init">
+        <echo> build javadoc </echo>
+        <mkdir dir="${infodir}" />
+        <javadoc  destdir="${infodir}"
+            link="http://java.sun.com/j2se/1.5.0/docs/api/"
+            access="private">
+
+            <fileset dir="${srcdir}/" >
+                <include name="**/*.java" />
+                <exclude name="test/**"/> 
+            </fileset>
+
+            <classpath refid="class.path"/>
+
+        </javadoc>
+    </target>
+
+    <!-- make a seperate target to javadoc protected things -->
+
+    <target name="protectdoc" description="make javadoc for protected source"
+        depends="init">
+        <echo> build javadoc </echo>
+        <mkdir dir="${infodir}" />
+        <javadoc  destdir="${infodir}"
+            link="http://java.sun.com/j2se/1.5.0/docs/api/"
+            access="protected">
+
+            <fileset dir="${srcdir}/" >
+                <include name="**/*.java" />
+                <exclude name="test/**"/> 
+            </fileset>
+
+            <classpath refid="class.path"/>
+
+        </javadoc>
+    </target>
+
+    <!-- clean target removes: compiled code, docs, generated jars -->
+
+    <target name="clean" description="remove directories created during a build" 
+        depends="init">
+        <echo> remove old doc and compiled classes </echo>
+        <delete dir="${build}" />
+        <delete dir="${jardest}" />
+        <delete dir="${infodir}" />
+    </target>
+
+
+    <!-- clean first then compile then javadoc -->
+
+    <target name="all" depends="clean,jar,javadoc">
+        <echo> --- new inf2220.jar and doc created --- </echo>
+    </target>
+
+
+    <target name="help">
+        <echo>  Ant is a tool that helps us compile Java source code  </echo>
+        <echo>  this Ant script (build.xml) has 9 targets  </echo>
+        <echo>               </echo>
+        <echo>  1. init         - set variables and classpath   </echo>
+        <echo>  2. build        - compiles source code    </echo>
+        <echo>  3. jar          - create a jar file from the source code </echo>
+        <echo>  4. javadoc      - build javadoc for source code    </echo>
+        <echo>  5. protectdoc   - build javadoc and include protected as well </echo>
+        <echo>  6. privatedoc   - build javadoc and include private's as well </echo>
+        <echo>  7. clean        - delete old javadoc and compiled source code </echo>
+        <echo>  8. help         - print this info  </echo>
+        <echo>  9. all          - clean + jar + javadoc  </echo>
+        <echo>               </echo>
+        <echo>  a target can depend on other targets (default target: jar) </echo>
+    </target>
+
+</project>

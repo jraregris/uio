@@ -1,0 +1,90 @@
+#!/bin/bash
+# 
+# This is a small utility script
+# to run classes inside the inf2220.jar
+# 
+#   usage: ./kjor no/uio/ifi/inf2220/path/to/File.java [ARGS]
+#
+# bjarneh@ifi.uio.no
+
+function usage(){
+cat << EOHELP
+
+ 'kjor' is a small utility script to execute classes inside
+ the inf2220 project.  One can use autocomplete (Tab) to
+ find the desired file and then execute it's main function.
+ dependencies should be added to the 'lib' directory, since
+ all files here are added to the classpath both from this
+ script and during compilation with Ant.
+
+ usage: ./kjor src/no/uio/ifi/inf2220/path/to/File.java [ARGS]"
+
+ options: 
+
+    -h --help            print this info and exit
+    -j --javahome        print right value for JAVA_HOME
+
+EOHELP
+
+}
+
+function javahome(){
+
+    JHOME=$(readlink -f $(which javac | sed 's/[^\/]*//') |sed 's/\/bin\/javac//')
+
+cat << EOJHOME
+
+write this: 
+
+  export JAVA_HOME=${JHOME}
+
+into your terminal (shell), or set this variable
+in one of your startup scripts, at ifi this file
+
+    $HOME/.envir
+
+is read everytime you login. so is this file:
+
+    $HOME/.bash_login
+
+EOJHOME
+}
+
+function parseArgv(){
+
+case $1 in
+    'help' | '--help' | '-help' | 'h' | '-h')
+    usage 
+	exit 1
+    ;;
+    'javahome' | 'JAVAHOME' | '-j' | '-javahome' | '--javahome' | 'JAVA_HOME')
+    javahome
+	exit 1
+    ;;
+esac
+
+}
+
+if [ \( -z "$1" \) -o  \( $# = 1 \)  ];then
+    parseArgv $1
+fi
+
+
+LIB=lib/
+CLASSPATH=dist/inf2220.jar
+SEP=:
+
+for i in $(ls $LIB);do
+ CLASSPATH=${LIB}${i}${SEP}${CLASSPATH}
+done
+
+argv=(${@})
+filnavn=`echo $1 | sed 's/\.java$//' | sed 's/^src\///' | sed 's/\//\./g'`
+unset argv[0]
+
+echo "-----------------------------------------------------------------------"
+echo -e "\n  class: " $filnavn 
+echo -e "  argv : " ${argv[*]} "\n"
+echo -e "-----------------------------------------------------------------------\n"
+
+java  -classpath $CLASSPATH $filnavn ${argv[*]} 
