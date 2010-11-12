@@ -1,5 +1,6 @@
 package no.uio.ifi.inf2220.iinstaller.graph;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
@@ -73,8 +74,19 @@ public class DoubleDAG {
     }
 
     public void visualize(){
-        // TODO
-        System.out.println("[TODO] visualize dependency graph");
+    	try {
+			Vizualizer v = new Vizualizer();
+			for(DNode n : nodes.values()){
+				for(DNode c: n.children){
+					v.addEdge(n.name,c.name);
+				}
+			}
+			v.visualize();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.exit(666);
+		}
+        System.out.println("Visualizing dependency graph... Stand by, YMMV.");
     }
 
     public boolean containsLoop(){
