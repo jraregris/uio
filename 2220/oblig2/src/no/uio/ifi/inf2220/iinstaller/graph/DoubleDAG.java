@@ -67,8 +67,9 @@ public class DoubleDAG {
     }
 
     public void addEdge(String parent, String child){
-        // TODO
-        System.out.println("[TODO] adding an edge between "+parent+" and "+child);
+        nodes.get(parent).addChild(nodes.get(child));
+        nodes.get(child).addParent(nodes.get(parent));
+        System.out.println("Adding an edge between "+parent+" and "+child);
     }
 
     public void visualize(){

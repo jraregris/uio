@@ -32,5 +32,23 @@ public class DoubleDAGTest {
 		dag.addNode("node", false);
 		assertNotNull(dag.nodes.get("node"));
 	}
+	
+	@Test
+	public void testAddEdge(){
+		DoubleDAG dag = new DoubleDAG();
+		dag.addNode("parent", false);
+		dag.addNode("child", false);
+
+		DNode parent = dag.nodes.get("parent");
+		DNode child = dag.nodes.get("child");
+		
+		assertFalse(parent.children.contains(child));
+		assertFalse(child.parents.contains(parent));
+
+		dag.addEdge("parent", "child");
+
+		assertTrue(parent.children.contains(child));
+		assertTrue(child.parents.contains(parent));
+	}
 
 }
