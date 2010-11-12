@@ -67,5 +67,22 @@ public class DoubleDAGTest {
 		dag.addEdge("cecil", "ali");
 		assertTrue(dag.containsLoop());
 	}
+	
+	@Test
+	public void testGetAllDependencies(){
+		DoubleDAG dag = new DoubleDAG();
+		dag.addNode("ali", false);
+		dag.addNode("bob", false);
+		dag.addNode("cecil", false);
+		
+		dag.addEdge("ali", "bob");
+		dag.addEdge("bob", "cecil");
+		
+		assertTrue(dag.getAllDependencies("ali").isEmpty());
+		assertTrue(dag.getAllDependencies("bob").contains("ali"));
+
+		assertTrue(dag.getAllDependencies("cecil").contains("ali"));
+		assertTrue(dag.getAllDependencies("cecil").contains("bob"));
+	}
 
 }

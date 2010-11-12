@@ -141,9 +141,12 @@ public class DoubleDAG {
 
 
     public Set<String> getAllDependencies(String name){
-        // TODO
-        System.out.println("[TODO] calculate ALL dependencies for "+name);
-        return new HashSet<String>();
+    	Set<String> s = new HashSet<String>();
+    	for(DNode n : nodes.get(name).parents){
+    		s.add(n.name);
+    		s.addAll(getAllDependencies(n.name));
+    	}
+        return s;
     }
 
     public Set<String> getAllReverseDependencies(String name){
