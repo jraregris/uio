@@ -52,8 +52,8 @@ public class DoubleDAG {
     }
 
     public void markAsInstalled(String name){
-        // TODO
-        System.out.println("[TODO] I should mark: "+name+" as installed");
+    	nodes.get(name).installed = true;
+        System.out.println("Marked as installed: "+name);
     }
 
     public void markAsUninstalled(String name){
@@ -62,8 +62,8 @@ public class DoubleDAG {
     }
 
     public void addNode(String name, boolean installed){
-        // TODO
-        System.out.println("[TODO] I shold add this node "+name);
+        nodes.put(name, new DNode(name, installed));
+        System.out.println("Adding node: "+name);
     }
 
     public void addEdge(String parent, String child){
