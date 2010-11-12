@@ -128,15 +128,19 @@ public class DoubleDAG {
     }
 
     public Set<String> requiredToInstall(String name){
-        // TODO
-        System.out.println("[TODO] calculate (missing) dependencies for "+name);
-        return new HashSet<String>();
+       Set<String> s = getAllDependencies(name);
+       for(String n : s)
+    	   if(nodes.get(n).installed)
+    		   s.remove(n);
+       return s;
     }
 
     public Set<String> requiredToRemove(String name){
-        // TODO
-        System.out.println("[TODO] calculate (broken) reverse dependencies for "+name);
-        return new HashSet<String>();
+    	Set<String> s = getAllReverseDependencies(name);
+        for(String n : s)
+     	   if(!nodes.get(n).installed)
+     		   s.remove(n);
+        return s;
     }
 
 
@@ -150,9 +154,12 @@ public class DoubleDAG {
     }
 
     public Set<String> getAllReverseDependencies(String name){
-        // TODO
-        System.out.println("[TODO] calculate ALL reverse dependencies for "+name);
-        return new HashSet<String>();
+    	Set<String> s = new HashSet<String>();
+    	for(DNode n : nodes.get(name).children){
+    		s.add(n.name);
+    		s.addAll(getAllReverseDependencies(n.name));
+    	}
+        return s;
     }
 
 }
