@@ -16,14 +16,21 @@ public class DoubleDAGTest {
 		assertTrue(dag.nodes.get("node").installed);
 	}
 
+	@Test
 	public void testMarkAsUnInstalled() {
 		DoubleDAG dag = new DoubleDAG();
 		dag.addNode("node", true);
 		assertTrue(dag.nodes.get("node").installed);
-		/*
-		 * assertFalse(dag.nodes.get("node").installed);
-		 * dag.markAsInstalled("node");
-		 */
+		dag.markAsUninstalled("node");
+		assertFalse(dag.nodes.get("node").installed);
+	}
+	
+	@Test
+	public void testAddNode(){
+		DoubleDAG dag = new DoubleDAG();
+		assertNull(dag.nodes.get("node"));
+		dag.addNode("node", false);
+		assertNotNull(dag.nodes.get("node"));
 	}
 
 }

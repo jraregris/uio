@@ -57,8 +57,8 @@ public class DoubleDAG {
     }
 
     public void markAsUninstalled(String name){
-        // TODO
-        System.out.println("[TODO] I should mark: "+name+" as  uninstalled");
+        nodes.get(name).installed = false;
+        System.out.println("Marked as uninstalled: "+name);
     }
 
     public void addNode(String name, boolean installed){
