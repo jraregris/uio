@@ -50,5 +50,22 @@ public class DoubleDAGTest {
 		assertTrue(parent.children.contains(child));
 		assertTrue(child.parents.contains(parent));
 	}
+	
+	@Test
+	public void testContainsLoop(){
+		DoubleDAG dag = new DoubleDAG();
+		dag.addNode("ali", false);
+		dag.addNode("bob", false);
+		dag.addNode("cecil", false);
+		
+		assertFalse(dag.containsLoop());
+
+		dag.addEdge("ali", "bob");
+		dag.addEdge("bob", "cecil");
+		assertFalse(dag.containsLoop());
+		
+		dag.addEdge("cecil", "ali");
+		assertTrue(dag.containsLoop());
+	}
 
 }

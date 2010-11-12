@@ -97,9 +97,9 @@ public class DoubleDAG {
     public boolean containsLoop(){
     	
     	// Set correct indegree before we start
-    	for(DNode n : nodes.values())
-    		n.indegree = n.children.size();
-    	
+    	for(DNode n : nodes.values()){
+    		n.indegree = n.parents.size();
+    	}
     	// Fill a new stack with the nodes with indegree 0.
     	Stack<DNode> s = new Stack<DNode>(); 
     	for(DNode v : nodes.values())
@@ -109,15 +109,21 @@ public class DoubleDAG {
     	int i = 1;
     	while(!s.isEmpty()){
     		DNode n = s.pop();
-    		n.topsortPlacement = i;
+    		n.topsortPlacement = i++;
     		for(DNode c: n.children){
     			c.indegree--;
     			if(c.indegree==0)
     				s.push(c);
     		}
-    		if(i>nodes.size())
-    			return true;
     	}
+    	for(DNode n:nodes.values()){
+    		if(n.indegree!=0){
+    			
+    		System.out.println("Oh no! Graph is circular!");
+    			return true;
+    		}
+    	}
+    	System.out.println("Graph is non-circular.");
     	return false;
     }
 
