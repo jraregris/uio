@@ -1,12 +1,14 @@
 package no.uio.ifi.inf2220.iinstaller.graph;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 /**
@@ -69,7 +71,10 @@ public class DoubleDAG {
 
     public void addEdge(String parent, String child){
         nodes.get(parent).addChild(nodes.get(child));
+       
         nodes.get(child).addParent(nodes.get(parent));
+        nodes.get(child).indegree++;
+        
         System.out.println("Adding an edge between "+parent+" and "+child);
     }
 
@@ -90,19 +95,30 @@ public class DoubleDAG {
     }
 
     public boolean containsLoop(){
-        // TODO
-        System.out.println("[TODO] -----------------------------------------------------");
-        System.out.println("[TODO] create a topological ordering of the nodes, if this ");
-        System.out.println("[TODO] fails we have a loop in the graph. the topological ");
-        System.out.println("[TODO] ordering will determine each nodes topsortPlacement ");
-        System.out.println("[TODO] which can be used later to determine in which order ");
-        System.out.println("[TODO] the programs should be installed or removed. ");
-        System.out.println("[TODO] adding the DNodes to a SortedSet will automatically ");
-        System.out.println("[TODO] sort them based on topsortPlacement, but the ordering");
-        System.out.println("[TODO] must be reversed if we calculate reverse dependencies");
-        System.out.println("[TODO] -----------------------------------------------------");
-    
-        return false;
+    	
+    	// Set correct indegree before we start
+    	for(DNode n : nodes.values())
+    		n.indegree = n.children.size();
+    	
+    	// Fill a new stack with the nodes with indegree 0.
+    	Stack<DNode> s = new Stack<DNode>(); 
+    	for(DNode v : nodes.values())
+    		if(v.parents.size()==0)
+    			s.add(v);
+
+    	int i = 1;
+    	while(!s.isEmpty()){
+    		DNode n = s.pop();
+    		n.topsortPlacement = i;
+    		for(DNode c: n.children){
+    			c.indegree--;
+    			if(c.indegree==0)
+    				s.push(c);
+    		}
+    		if(i>nodes.size())
+    			return true;
+    	}
+    	return false;
     }
 
     public Set<String> requiredToInstall(String name){
