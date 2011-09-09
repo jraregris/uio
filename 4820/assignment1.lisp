@@ -88,6 +88,46 @@
 
 ;; 6
 
+;; First I thought out a recursive way of solving this problem. But
+;; then it dawned on me that this could be solved a lot simpler as below.
+
 (defun palindromep (p)
-  (if (eq (first p) (last p))
-      (t) ))
+  (if (equal p (reverse p)) t ))
+
+(palindromep '(a b l e w a s i e r e i s a w e l b a))
+;; => t
+
+;; But I also noticed that the example in the exercise is
+;; case-insensitive.
+
+(palindromep '(A b l e w a s i e r e i s a w e l b a))
+;; => nil
+
+;; So I guess I'll go with my first way of doing this after all.
+
+(defun palindromep (p)
+  (cond ((< (length p) 2) t)
+        ((= (length p) 2)
+         (equalp (symbol-name (first p)) (symbol-name (first (reverse p)))))
+        ((palindromep (list (first p) (first (reverse p))))
+         (palindromep (rest (reverse (rest p)))))
+        ))
+
+(palindromep '(A b l e w a s i e r e i s a w e l b a))
+
+;; => t
+
+(palindromep '(a b a))
+
+(equalp (symbol-name 'a) (symbol-name 'A))
+(defun palindromep (p)
+  (cond (< (length p) 2) (t)))
+
+(palindromep '(1))
+
+
+
+       
+
+
+
