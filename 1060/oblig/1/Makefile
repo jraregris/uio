@@ -1,11 +1,15 @@
-default: strings compress
+default: part1 part2
 
-compress: compress
-	gcc compress.c -o compress
+debug: part1.c part2.c functions.h
+	gcc -ggdb part1.c functions.h -o 1
+	gcc -ggdb part2.c -o 2
 
-strings: strings.c stringsfun.h
-	gcc strings.c stringsfun.h -ggdb -o strings
+part1: part1.c functions.h
+	gcc part1.c functions.h -o 1
+
+part2: part2.c
+	gcc part2.c -o 2
 
 clean: 
-	rm strings
-	rm compress
+	rm 1
+	rm 2

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "stringsfun.h"
+#include "functions.h"
 
 //// Documentation
 #define VERSION "1060-h10-oblig1 0.1"
@@ -10,7 +10,7 @@
 
 void usage(char arg[])
 {
-  printf("USAGE: %s command input_file\n", arg);
+  printf("USAGE: %s command input_file\n\n", arg);
   printf("where \"command\" is one of the following:\n");
   printf("  print      print input_file\n");
   printf("  random     print a random line\n");
