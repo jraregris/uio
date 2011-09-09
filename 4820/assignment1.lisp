@@ -106,28 +106,23 @@
 ;; So I guess I'll go with my first way of doing this after all.
 
 (defun palindromep (p)
-  (cond ((< (length p) 2) t)
-        ((= (length p) 2)
-         (equalp (symbol-name (first p)) (symbol-name (first (reverse p)))))
-        ((palindromep (list (first p) (first (reverse p))))
-         (palindromep (rest (reverse (rest p)))))
-        ))
+  (cond 
+   ;;  If the sequence is shorter than two elements it is palindromic!
+   ((< (length p) 2) t)            
+        
+   ;; If it has two elements, it is a palindrome if they are the same.
+   ((= (length p) 2)
+    (equalp (symbol-name (first p)) 
+            (symbol-name (first (reverse p))))) 
+   
+   ;; If the sequence is longer than two elements, it is palindrome if
+   ;; the first and last element are palindrome with eachother...
+   ((palindromep (list (first p) 
+                       (first (reverse p))))
+    
+    ;; ...and the rest of the sequence is a palindrome.
+    (palindromep (rest (reverse (rest p)))))
+   ))
 
 (palindromep '(A b l e w a s i e r e i s a w e l b a))
-
 ;; => t
-
-(palindromep '(a b a))
-
-(equalp (symbol-name 'a) (symbol-name 'A))
-(defun palindromep (p)
-  (cond (< (length p) 2) (t)))
-
-(palindromep '(1))
-
-
-
-       
-
-
-
