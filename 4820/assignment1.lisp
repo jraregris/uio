@@ -186,6 +186,22 @@
 ;; => (A B C D E)
 
 ;; This is not the same result as in the exercise text, but as far as
-;; I can tell, the order of the list is unimportant (as these are sets).
+;; I can tell, the order of the list is unimportant (as these are
+;; sets). I also assume that the first list is a proper set as noted
+;; in the text.
 
-(set-union '(a b c) '(e e a))
+(defun set-intersection (a b)
+  (cond
+   ;; If b is nil, return the empty set.
+   ((null b) nil)
+
+   ;; If first b is in a, return first b appended to SET-INTERSECTION
+   ;; with a and the rest of b as arguments.
+   ((where (first b) a)
+    (append (set-intersection a (rest b)) (first b)))
+   
+   (t (set-intersection a (rest b)))
+   ))
+
+
+(set-intersection '(a b c) '(d e a))
