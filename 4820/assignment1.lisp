@@ -107,7 +107,7 @@
 
 (defun palindromep (p)
   (cond 
-   ;;  If the sequence is shorter than two elements it is palindromic!
+   ;; If the sequence is shorter than two elements it is palindromic!
    ((< (length p) 2) t)            
         
    ;; If it has two elements, it is a palindrome if they are the same.
@@ -126,3 +126,31 @@
 
 (palindromep '(A b l e w a s i e r e i s a w e l b a))
 ;; => t
+
+;; 7a
+
+(defun where (a l)
+  (cond 
+   ;; If the list is empty, return nil.
+   ((null l) nil)
+   ;; If the first symbol in the list matches the atom, return 0.
+   ((equalp (symbol-name a) (symbol-name (first l))) 0)
+   ;; If none of the above apply, recursivly call the (where) function
+   ;; again with the rest of the list, and return it's value + 1. 
+   (t (add-number-or-nil 1 (where a (rest l))))))
+
+;; The way I solved it doesn't really work on it's own because I tried
+;; to add 1 and nil if the atom was not in the list at all. I solved
+;; this by making a new function that adds the numbers if it is not nil,
+;; and returns nil if it is. This feels hacky and unelegant, but it gets
+;; the job done.
+(defun add-number-or-nil (n r) (if (null r) nil (+ n r)))
+
+(where 'c '(a b c d e c))
+;; => 2
+
+;; 7b
+
+
+
+
