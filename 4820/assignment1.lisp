@@ -134,9 +134,9 @@
    ;; If the list is empty, return nil.
    ((null l) nil)
    ;; If the first symbol in the list matches the atom, return 0.
-   ((equalp (symbol-name a) (symbol-name (first l))) 0)
-   ;; If none of the above apply, recursivly call the (where) function
-   ;; again with the rest of the list, and return it's value + 1. 
+   ((equalp a (first l)) 0)
+   ;; If none of the above apply, recursivly call WHERE again with the
+   ;; rest of the list, and return it's value + 1.
    (t (add-number-or-nil 1 (where a (rest l))))))
 
 ;; The way I solved it doesn't really work on it's own because I tried
@@ -144,13 +144,48 @@
 ;; this by making a new function that adds the numbers if it is not nil,
 ;; and returns nil if it is. This feels hacky and unelegant, but it gets
 ;; the job done.
-(defun add-number-or-nil (n r) (if (null r) nil (+ n r)))
+(defun add-number-or-nil (n r)
+  (when r (+ n r)))
 
-(where 'c '(a b c d e c))
+(where 'c '(a b c d- e c))
 ;; => 2
 
 ;; 7b
 
+(where 'c '((a b) (c d) (e c)))
+;; => nil
 
+;; My implementation evaluates the above call to nil which I think is
+;; right given the specification. If I were to support nested lists I
+;; would have to make a decision on how that should be handled. Should
+;; I flatten the list? Or should I return a list of position
+;; numbers? (In this case (1 0).) This functionality would definitly
+;; go beyond the specification and could lead to unexpected (and
+;; subjectively wrong) results.
 
+;; 8a
 
+(defun set-union (a b)
+  (cond 
+    ;; If b is empty, return a.
+    ((null b) a)
+
+    ;; If first of b is not in a (checked with a call to WHERE from
+    ;; the previous exercise), return SET-UNION with the first of b
+    ;; appended to a and the rest of b as parameters.
+    ((not (where (first b) a))
+	 (set-union (append a (list (first b)))
+		    (rest b)))
+
+    ;; Else return SET-UNION with a and rest of b.
+    (t (set-union a (rest b)))
+    )
+  )
+
+(set-union '(a b c) '(d e a))
+;; => (A B C D E)
+
+;; This is not the same result as in the exercise text, but as far as
+;; I can tell, the order of the list is unimportant (as these are sets).
+
+(set-union '(a b c) '(e e a))
