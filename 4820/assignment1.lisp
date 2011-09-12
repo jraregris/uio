@@ -1,4 +1,5 @@
-;; ASSIGNMENT 1 
+;; ASSIGNMENT 1a INF4820
+;; Oddmund Strømme (oddmunds)
 
 ;; 2a
 (first (rest '(apple orange pear lemon)))
@@ -28,7 +29,9 @@
 (setf foo '(list bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar
             bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar 
             bar bar bar bar bar bar bar bar foo))
-(position 'foo foo) => 42
+
+(position 'foo foo)
+;; => 42
 
 ;; 3d
 (setf foo '(((bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar bar
@@ -179,8 +182,7 @@
 
     ;; Else return SET-UNION with a and rest of b.
     (t (set-union a (rest b)))
-    )
-  )
+    ))
 
 (set-union '(a b c) '(d e a))
 ;; => (A B C D E)
@@ -220,8 +222,76 @@
 
    ;; Else return SET-SUBTRACTION with a and the rest of b.
    (t (set-subtraction a (rest b)))
-   
   ))
 
 (set-subtraction '(a b c) '(d e a))
 ;; => (B C)
+
+;; 9
+
+(defun tokenize (string)
+  (loop
+      for start = 0 then (unless (null end) (+ end 1))
+      for end = (unless (null start) (position #\space string :start start))
+      while start collect (subseq string start end)))
+
+;; 9a
+
+(with-open-file (stream "brown.txt" :direction :input)
+  (loop
+      for line = (read-line stream nil)
+      while line
+      append (tokenize line)))
+
+;; The return value of the above command is a list of string, each
+;; being one word from the input file. There are also some empty
+;; strings ("") where there were more than one space between the words
+;; in the original text.
+
+;; 9b
+
+(setf *corpus* (with-open-file (stream "brown.txt" :direction :input)
+                 (loop
+                     for line = (read-line stream nil)
+                     while line
+                     append (tokenize line))))
+
+;; Our current strategy for tokenizing is to plit the text between the
+;; spaces. That means that everything between two spaces is a
+;; word/token. This causes empty words to show up everywhere there are
+;; two spaces next to each other.
+
+(length *corpus*)
+;; => 24052
+
+;; 9c
+ 
+(defun unique (l)
+  (let ((result nil))
+    (loop
+        for token in l
+        when (not (where token result)) ; if token is not already in the list...
+        do (setf result (append result (list token)))) ; ...append it to result
+     result))
+
+(unique *corpus*)
+
+;; 9d
+
+(defun word-count (l)
+  (let ((m (make-hash-table :test #'equalp))) ; equalp for case-insensitivity
+    (loop
+        for token in l
+        do (if (gethash token m)
+               (setf (gethash token m) (+ 1 (gethash token m)))
+             (setf (gethash token m) 1)))
+    m))
+
+(setf k (word-count *corpus*))
+;; => #<EQUALP hash-table with 5920 entries @ #x1000dd8ec2>
+
+(gethash "the" k)
+;; => 1781
+
+(gethash "man" k)
+;; => 10
