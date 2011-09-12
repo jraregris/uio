@@ -114,6 +114,11 @@
 ;; But I also noticed that the example in the exercise is
 ;; case-insensitive.
 
+;; Note: I found out that this was because I had been evaluating the
+;; code as elisp. (I've been using ACL and SLIME interchangably.) Even
+;; though the following code is redundant, I thought I might as well
+;; include it (I like the nose/tail recursion).
+
 (palindromep '(A b l e w a s i e r e i s a w e l b a))
 ;; => nil
 
