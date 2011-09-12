@@ -1,6 +1,17 @@
 ;; ASSIGNMENT 1a INF4820
 ;; Oddmund Strømme (oddmunds)
 
+;; Note to teacher:
+
+;; I've mostly used the lecture slides, CLHS
+;; (http://www.lispworks.com/documentation/HyperSpec/Front/index.htm)
+;; and the Seibel book for reference. (In that order.) I've felt like
+;; I've found pretty much what I have been looking for almost
+;; immediatly, and as a result my solutions might seem a bit random
+;; and not be very idiomatic of CL. I've tried to make my functions as
+;; DRY and functional as possible (like only using variables where the
+;; assignment text suggests so).
+
 ;; 2a
 (first (rest '(apple orange pear lemon)))
 ;; => ORANGE
