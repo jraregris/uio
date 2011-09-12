@@ -153,7 +153,7 @@
    ;; rest of the list, and return it's value + 1.
    (t (add-number-or-nil 1 (where a (rest l))))))
 
-;; The way I solved it doesn't really work on it's own because I tried
+;; The way I solved it doesn't really work on its own because I tried
 ;; to add 1 and nil if the atom was not in the list at all. I solved
 ;; this by making a new function that adds the numbers if it is not nil,
 ;; and returns nil if it is. This feels hacky and unelegant, but it gets
