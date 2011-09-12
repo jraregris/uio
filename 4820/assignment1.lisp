@@ -132,7 +132,7 @@
    ;; If it has two elements, it is a palindrome if they are the same.
    ((= (length p) 2)
     (equalp (symbol-name (first p)) 
-            (symbol-name (first (reverse p))))) 
+            (symbol-name (second p))))
    
    ;; If the sequence is longer than two elements, it is palindrome if
    ;; the first and last element are palindrome with eachother...
