@@ -198,10 +198,30 @@
    ;; If first b is in a, return first b appended to SET-INTERSECTION
    ;; with a and the rest of b as arguments.
    ((where (first b) a)
-    (append (set-intersection a (rest b)) (first b)))
-   
+    (append (set-intersection a (rest b)) (list (first b))))
+
+   ;; Else return SET-INTERSECTION with a and rest of b.
    (t (set-intersection a (rest b)))
    ))
 
 
 (set-intersection '(a b c) '(d e a))
+;; => (A)
+
+(defun set-subtraction (a b)
+  (cond
+   ;; When we run out of b, return what is left of a.
+   ((null b) a)
+   
+   ;; If first b is in a, return SET-SUBSTRACTION with a with first b
+   ;; removed and the rest of b as arguments.
+   ((where (first b) a)
+    (set-subtraction (remove (first b) a) (rest b)))
+
+   ;; Else return SET-SUBTRACTION with a and the rest of b.
+   (t (set-subtraction a (rest b)))
+   
+  ))
+
+(set-subtraction '(a b c) '(d e a))
+;; => (B C)
